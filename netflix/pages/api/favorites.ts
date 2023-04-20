@@ -8,16 +8,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        await serverAuth(req, res);
+        const { currentUser } = await serverAuth(req, res);
+        const favoriteMovies = await prismadb.movie.findMany({
+            where: {
+                id: {
+                    in: currentUser?.favoriteIds
+                }
+            }
+        })
 
-        const movieCount = await prismadb.movie.count();
-        const randomIndex = Math.floor(Math.random() * movieCount)
-        const randomMovie = await prismadb.movie.findMany({
-            take: 1,
-            skip: randomIndex
-        });
-
-        return res.status(200).json(randomMovie[0]);
+        return res.status(200).json(favoriteMovies)
     } catch(error) {
         console.log(error)
         return res.status(400).end()
