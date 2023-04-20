@@ -15,7 +15,7 @@ All styling was done use `Tailwind CSS`
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next-netflix-tutorial.git
+git clone https://github.com/Shellhorse/Netflix-clone-.git
 ```
 
 ### Install packages
